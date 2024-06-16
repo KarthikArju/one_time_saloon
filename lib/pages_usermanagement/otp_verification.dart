@@ -1,22 +1,61 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_build_context_synchronously
+
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:custom_clippers/custom_clippers.dart';
 import 'package:salon/features/home_page.dart';
-
-
-
+import 'package:http/http.dart' as http;
 import 'package:salon/utils/colors.dart';
 import 'package:salon/widgets/otp_text_box.dart';
+import 'package:salon/widgets/shared_functions.dart';
+
+import '../utils/api.dart';
 
 class OTPVerificationPage extends StatefulWidget {
-  const OTPVerificationPage({super.key});
+  final value;
+  const OTPVerificationPage({super.key, this.value});
 
   @override
   State<OTPVerificationPage> createState() => _OTPVerificationPageState();
 }
 
 class _OTPVerificationPageState extends State<OTPVerificationPage> {
+  bool isLoading = false;
+  void verifyOTP() async {
+    setState(() {
+      isLoading = true; // Add this line
+    });
+    var request = {
+      "otp": widget.value["otp"],
+      "number": widget.value["mobile"]
+    };
+    var res = await http.post(
+      Uri.parse(APIEndPoints.verifyOTP),
+      body: request,
+    );
+    if (res.statusCode == 200) {
+      if (jsonDecode(res.body)['status'] == 'success') {
+        _showDecoratedAlert(context);
+        setState(() {
+          isLoading=false;
+        });
+      } else {
+        toastify("something went wrong");
+        setState(() {
+          isLoading=false;
+        });
+      }
+    } else {
+      toastify("Something went wrong");
+      setState(() {
+          isLoading=false;
+        });
+    }
+
+    debugPrint('the readcnn : $request');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +103,6 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
                 const SizedBox(
                   height: 28,
                 ),
-
                 Form(
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 32),
@@ -110,12 +148,11 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
                     ],
                   ),
                 ),
-              
                 const SizedBox(height: 40),
                 InkWell(
-                  onTap: () => _showDecoratedAlert(context),
-
-                 
+                  onTap: () {
+                    verifyOTP();
+                  },
                   child: Container(
                     // // padding: const EdgeInsets.all(32),
                     margin: const EdgeInsets.symmetric(horizontal: 32),
@@ -124,7 +161,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
                     decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(5))),
-                    child: const Center(
+                    child: isLoading ? appLoader() : const Center(
                         child: Text(
                       'SIGN UP',
                       style: TextStyle(
@@ -144,7 +181,12 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
 void _showDecoratedAlert(BuildContext context) {
   showDialog(
     context: context,
-    barrierColor:const  Color.fromARGB(200, 0, 11, 70,),
+    barrierColor: const Color.fromARGB(
+      200,
+      0,
+      11,
+      70,
+    ),
     builder: (BuildContext context) {
       return AlertDialog(
         shape: RoundedRectangleBorder(
@@ -183,8 +225,6 @@ void _showDecoratedAlert(BuildContext context) {
                       builder: (context) => const HomePage(),
                     ),
                   );
-
-                 
                 },
                 child: Container(
                   decoration: const BoxDecoration(

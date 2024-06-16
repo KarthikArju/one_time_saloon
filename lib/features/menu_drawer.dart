@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:salon/features/book_mark.dart';
-
+import 'package:salon/pages_usermanagement/login_page.dart';
 
 import 'package:salon/utils/colors.dart';
-
+import 'package:salon/widgets/shared_functions.dart';
 
 class MenuNavBar extends StatelessWidget {
   const MenuNavBar({super.key});
@@ -35,12 +35,13 @@ class MenuNavBar extends StatelessWidget {
                     ),
                   ),
                 ),
-               const  SizedBox(width: 10,),
-      
+                const SizedBox(
+                  width: 10,
+                ),
                 const SizedBox(
                   height: 70,
                   width: 180,
-                  child:  Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -65,8 +66,14 @@ class MenuNavBar extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.home, color: Colors.white,),
-            title: const Text('Home', style: TextStyle(color: Colors.white),),
+            leading: const Icon(
+              Icons.home,
+              color: Colors.white,
+            ),
+            title: const Text(
+              'Home',
+              style: TextStyle(color: Colors.white),
+            ),
             onTap: () {
               // Update the state of the app
               // ...
@@ -75,8 +82,14 @@ class MenuNavBar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.calendar_month_rounded , color: Colors.white,),
-            title: const Text('Appointment', style: TextStyle(color: Colors.white),),
+            leading: const Icon(
+              Icons.calendar_month_rounded,
+              color: Colors.white,
+            ),
+            title: const Text(
+              'Appointment',
+              style: TextStyle(color: Colors.white),
+            ),
             onTap: () {
               // Update the state of the app
               // ...
@@ -85,8 +98,14 @@ class MenuNavBar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.payment,color: Colors.white,),
-            title: const Text('Payment', style: TextStyle(color: Colors.white),),
+            leading: const Icon(
+              Icons.payment,
+              color: Colors.white,
+            ),
+            title: const Text(
+              'Payment',
+              style: TextStyle(color: Colors.white),
+            ),
             onTap: () {
               // Update the state of the app
               // ...
@@ -95,8 +114,14 @@ class MenuNavBar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.notifications,color: Colors.white,),
-            title: const Text('Notification', style: TextStyle(color: Colors.white),),
+            leading: const Icon(
+              Icons.notifications,
+              color: Colors.white,
+            ),
+            title: const Text(
+              'Notification',
+              style: TextStyle(color: Colors.white),
+            ),
             onTap: () {
               // Update the state of the app
               // ...
@@ -105,8 +130,14 @@ class MenuNavBar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.settings,color: Colors.white,),
-            title: const Text('Settings', style: TextStyle(color: Colors.white),),
+            leading: const Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
+            title: const Text(
+              'Settings',
+              style: TextStyle(color: Colors.white),
+            ),
             onTap: () {
               // Update the state of the app
               // ...
@@ -115,8 +146,14 @@ class MenuNavBar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.bookmark,color: Colors.white,),
-            title: const Text('Bookmark', style: TextStyle(color: Colors.white),),
+            leading: const Icon(
+              Icons.bookmark,
+              color: Colors.white,
+            ),
+            title: const Text(
+              'Bookmark',
+              style: TextStyle(color: Colors.white),
+            ),
             onTap: () {
               Navigator.pushReplacement(
                 context,
@@ -127,8 +164,14 @@ class MenuNavBar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.history,color: Colors.white,),
-            title: const Text('History', style: TextStyle(color: Colors.white),),
+            leading: const Icon(
+              Icons.history,
+              color: Colors.white,
+            ),
+            title: const Text(
+              'History',
+              style: TextStyle(color: Colors.white),
+            ),
             onTap: () {
               // Update the state of the app
               // ...
@@ -137,13 +180,19 @@ class MenuNavBar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.logout,color: Colors.white,),
-            title: const Text('Sign Out', style: TextStyle(color: Colors.white),),
+            leading: const Icon(
+              Icons.logout,
+              color: Colors.white,
+            ),
+            title: const Text(
+              'Sign Out',
+              style: TextStyle(color: Colors.white),
+            ),
             onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
+              toastify("Logout successfully");
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) =>const LoginPage()),
+                  (Route<dynamic> route) => false);
             },
           ),
         ],

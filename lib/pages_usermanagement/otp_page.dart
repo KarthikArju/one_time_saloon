@@ -138,34 +138,35 @@ class _AskMobileNumberPageState extends State<AskMobileNumberPage> {
                 ),
                 const SizedBox(height: 40),
                 InkWell(
-                        onTap: () {
-                          mobileNo(context, controller.text);
-                          // Navigator.pushReplacement(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => const OTPVerificationPage(),
-                          //   ),
-                          // );
-                        },
-                        child: Container(
-                          // // padding: const EdgeInsets.all(32),
-                          margin: const EdgeInsets.symmetric(horizontal: 32),
-                          height: 50,
-                          width: double.infinity,
-                          decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5))),
-                          child: isLoading? appLoader() : const Center(
-                              child: Text( 
+                  onTap: () {
+                    mobileNo(context, controller.text);
+                    // Navigator.pushReplacement(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => const OTPVerificationPage(),
+                    //   ),
+                    // );
+                  },
+                  child: Container(
+                    // // padding: const EdgeInsets.all(32),
+                    margin: const EdgeInsets.symmetric(horizontal: 32),
+                    height: 50,
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                    child: isLoading
+                        ? appLoader()
+                        : const Center(
+                            child: Text(
                             'SEND OTP',
                             style: TextStyle(
                                 color: Color.fromARGB(255, 0, 11, 70),
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600),
                           )),
-                        ),
-                      ),
+                  ),
+                ),
               ]),
         ),
       ),
@@ -210,15 +211,15 @@ class _AskMobileNumberPageState extends State<AskMobileNumberPage> {
 
       if (jsonDecode(res.body)['status'] == 'success') {
         await SharedPrefs.saveNumber(number);
-        _showDecoratedAlert(context, jsonDecode(res.body)['otp'].toString());
+        _showDecoratedAlert(
+            context, jsonDecode(res.body)['otp'].toString(), number);
         // Navigator.pushReplacement(
         //   context,
         //   MaterialPageRoute(
         //     builder: (context) => const OTPVerificationPage(),
         //   ),
         // );
-      }
-      else{ 
+      } else {
         print("it wotkdvmrg");
         toastify(jsonDecode(res.body)['message']);
       }
@@ -234,7 +235,7 @@ class _AskMobileNumberPageState extends State<AskMobileNumberPage> {
     }
   }
 
-  void _showDecoratedAlert(BuildContext context, String otp) {
+  void _showDecoratedAlert(BuildContext context, String otp, String number) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -273,7 +274,9 @@ class _AskMobileNumberPageState extends State<AskMobileNumberPage> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const OTPVerificationPage(),
+                        builder: (context) => OTPVerificationPage(
+                          value: {"mobile": number, "otp": otp},
+                        ),
                       ),
                     );
                   },
