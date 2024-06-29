@@ -290,7 +290,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   _nameController.text,
                                   _passwordController.text,
                                   _confirmPasswordController.text);
-                              // Navigator.pushReplacement(
+                              // Navigator.push(
                               //   context,
                               //   MaterialPageRoute(
                               //     builder: (context) =>
@@ -370,7 +370,7 @@ class _SignUpPageState extends State<SignUpPage> {
     print('Sign Up Function Called');
     print("$email ::: $pass :::: $confirmpass");
     final String apiUrl = APIEndPoints.signINAPI;
-    var dio = Dio();
+    // var dio = Dio();
     try {
       
       var map = Map<String, dynamic>();
@@ -379,32 +379,32 @@ class _SignUpPageState extends State<SignUpPage> {
       map['cnfpassword'] = confirmpass;
       print("it worksss");
        FormData formData = new FormData.fromMap(map);
-       print("it also w works");
-      var res = await dio.post(apiUrl, data: formData);
-      print("object : ${res.data}");
-      // var res = await http.post(
-      //   Uri.parse(apiUrl),
-      //   body: map,
-      // );
+       print("it also w works"); 
+      // var res = await dio.post(apiUrl, data: formData);
+      // print("object : ${res.data}");
+      var res = await http.post(
+        Uri.parse(apiUrl),
+        body: map,
+      );
       // print("Data sent");
       if (res.statusCode == 200) { 
         print(res.statusCode);
         await SharedPrefs.saveEmail(email);
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => const AskMobileNumberPage(),
           ),
         );
-        print('Success: ${res.data}');
+        print('Success: ${res.body}');
       } else if (res.statusCode == 400) {
-        print('Client Error: ${res.statusMessage}');
+        print('Client Error: ${res.statusCode}');
       } else {
         print('Server Error: ${res.statusCode}');
       }
-      if (jsonDecode(res.data)['status'] == 'success') {
+      if (jsonDecode(res.body)['status'] == 'success') {
         await SharedPrefs.saveEmail(email);
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => const AskMobileNumberPage(),

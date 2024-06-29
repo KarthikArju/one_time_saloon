@@ -28,7 +28,7 @@ class Barbar extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder:(context) => const BarbarViewAllPage() ),);
+                            Navigator.of(context).push(MaterialPageRoute(builder:(context) => const BarbarViewAllPage() ),);
                           },
                           child:const  Text(
                             'View all',

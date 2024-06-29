@@ -1,16 +1,17 @@
+// ignore_for_file: use_build_context_synchronously
 
-
+import 'dart:convert';
 
 import 'package:custom_clippers/custom_clippers.dart';
 
 import 'package:flutter/material.dart';
 import 'package:salon/pages_usermanagement/forget_otp_page.dart';
-
-
-
-
+import 'package:http/http.dart' as http;
 
 import 'package:salon/utils/colors.dart';
+import 'package:salon/widgets/shared_functions.dart';
+
+import '../utils/api.dart';
 
 class ForgetPasswordPage extends StatefulWidget {
   const ForgetPasswordPage({super.key});
@@ -23,8 +24,6 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
   final TextEditingController _nameController = TextEditingController();
-
-  
 
   String? validateEmail(String? email) {
     RegExp emailRegex = RegExp(r'^[\w\.-]+@[\w-]+\.\w{2,3}(\.\w{2,3})?$');
@@ -40,6 +39,44 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
   bool obsecuretxt = true;
   bool confrimobsecuretxt = true;
   bool isChecked = false;
+  bool isLoading = false;
+  void sendCode() async {
+    setState(() {
+      isLoading = true;
+    });
+    var map = {};
+    map['email'] = _nameController.text;
+
+    var response = await http.post(
+      Uri.parse(APIEndPoints.sendCode),
+      body: map,
+    );
+    if (response.statusCode == 200) {
+      if (jsonDecode(response.body)["status"] == "success") {
+        toastify(jsonDecode(response.body)["message"]);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>  ForegetOTPPage(email: _nameController.text,),
+          ),
+        );
+        setState(() {
+          isLoading = false;
+        });
+      } else {
+        toastify(jsonDecode(response.body)["message"]);
+        setState(() {
+          isLoading = false;
+        });
+      }
+    } else {
+      toastify("Something went wrong");
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final inputBorder = OutlineInputBorder(
@@ -85,7 +122,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                   ),
                 ),
               ),
-               const SizedBox(
+              const SizedBox(
                 height: 12,
               ),
               const Padding(
@@ -112,15 +149,11 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        
-                       
                         TextFormField(
                           controller: _nameController,
                           decoration: InputDecoration(
-                             errorBorder:const OutlineInputBorder(
-                                    
-                                      borderSide:
-                                          BorderSide(color: Colors.white)),
+                            errorBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white)),
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 16, horizontal: 16),
                             hintText: 'Enter email id',
@@ -134,19 +167,11 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                           keyboardType: TextInputType.emailAddress,
                           validator: validateEmail,
                         ),
-                    
-                        
                         const SizedBox(height: 25),
                         InkWell(
                           onTap: () {
                             if (_formkey.currentState!.validate()) {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ForegetOTPPage(),
-                                ),
-                              );
+                              sendCode();
                             }
                           },
                           child: Container(
@@ -158,17 +183,16 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                                 color: Colors.white,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(5))),
-                            child: const Center(
+                            child: isLoading ? appLoader() : const Center(
                                 child: Text(
                               'SEND CODE',
                               style: TextStyle(
-                                  color:  Color.fromARGB(255, 0, 11, 70),
+                                  color: Color.fromARGB(255, 0, 11, 70),
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600),
                             )),
                           ),
                         ),
-                        
                       ],
                     ),
                   ),

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 
-
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 

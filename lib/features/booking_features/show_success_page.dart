@@ -70,7 +70,7 @@ class ShowSuccessPage extends StatelessWidget {
              const SizedBox(height: 60),
                         InkWell(
                           onTap: () {
-                            Navigator.pushReplacement(
+                            Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>

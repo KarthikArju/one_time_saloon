@@ -38,7 +38,7 @@ class LuxuryViewAllPage extends StatelessWidget {
                         Row(children: [
                           GestureDetector(
                             onTap: () {
-                              Navigator.pushReplacement(
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => const HomePage(),

@@ -220,7 +220,7 @@ void _showDecoratedAlert(BuildContext context) {
             children: <Widget>[
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pushReplacement(
+                  Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => const HomePage(),
                     ),

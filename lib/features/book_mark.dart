@@ -21,19 +21,14 @@ class _BookMarkPageState extends State<BookMarkPage> {
         backgroundColor: AppColors.appbackgroundColor,
         leading: GestureDetector(
             onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const HomePage(),
-                ),
-              );
+              Navigator.pop(context);
             },
             child: const Icon(
               Icons.arrow_back,
               color: Colors.white,
             )),
         title: const Text(
-          'Book ',
+          'Book',
           style: TextStyle(
               fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
         ),

@@ -1,14 +1,12 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-
 import 'package:salon/features/menu_drawer.dart';
 import 'package:salon/features/search_saloon.dart';
 import 'package:salon/home_subpages/model/saloon_list_response.dart';
+import 'package:salon/home_subpages/model/service_list_response.dart';
 import 'package:salon/utils/api.dart';
 import 'package:salon/utils/colors.dart';
 import 'package:http/http.dart' as http;
-import 'package:salon/widgets/home_barbar_item.dart';
 import 'package:salon/widgets/home_luxury_item.dart';
 import 'package:salon/widgets/home_recommended_item.dart';
 import 'package:salon/widgets/home_salon_items.dart';
@@ -24,15 +22,24 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   SaloonListResponse saloonLists = SaloonListResponse();
+  ServiceListResponse serviceList = ServiceListResponse();
   bool isLoading = true;
   final GlobalKey<ScaffoldState> _scaffoldKey1 = GlobalKey<ScaffoldState>();
+  @override
   void initState() {
     super.initState();
-    getSaloonList().then(
+    init();
+  }
+
+  void init() async {
+    await getSaloonList().then(
       (value) {
-        setState(() {
-          saloonLists = value;
-          isLoading = false;
+        getServiceList().then((val) {
+          setState(() {
+            saloonLists = value;
+            serviceList = val;
+            isLoading = false;
+          });
         });
       },
     ).catchError((e) {
@@ -45,9 +52,24 @@ class _HomePageState extends State<HomePage> {
     var response = await http.post(Uri.parse(APIEndPoints.saloonList));
     print("succc");
 
-    if (response.statusCode == 200) {}
+    if (response.statusCode == 200) {
+      print("succc");
+      return SaloonListResponse.fromJson(jsonDecode(response.body));
+    } else {
+      return saloonLists;
+    }
+  }
+
+  Future<ServiceListResponse> getServiceList() async {
+    var response = await http.post(Uri.parse(APIEndPoints.serviceList));
     print("succc");
-    return SaloonListResponse.fromJson(jsonDecode(response.body));
+
+    if (response.statusCode == 200) {
+      print("succc");
+      return ServiceListResponse.fromJson(jsonDecode(response.body));
+    } else {
+      return serviceList;
+    }
   }
 
   // final GlobalKey<ScaffoldState> _scaffoldKey2 = GlobalKey<ScaffoldState>();
@@ -146,8 +168,11 @@ class _HomePageState extends State<HomePage> {
                               height: 70,
                             ),
                             GestureDetector(
-                              onTap: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=> SearchSaloon()));
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SearchSaloon()));
                               },
                               child: Container(
                                 height: 50,
@@ -180,12 +205,14 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
-                    const Barbar(),
+                    // const Barbar(),
                     Salon(
                       saloonList: saloonLists,
                     ),
-                    const Services(),
-                    const RecommenedSection(),
+                    Services(
+                      serviceList: serviceList,
+                    ),
+                    // const RecommenedSection(),
                     const LuxurySection(),
                   ],
                 ),

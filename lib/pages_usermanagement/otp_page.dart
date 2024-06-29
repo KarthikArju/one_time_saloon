@@ -140,7 +140,7 @@ class _AskMobileNumberPageState extends State<AskMobileNumberPage> {
                 InkWell(
                   onTap: () {
                     mobileNo(context, controller.text);
-                    // Navigator.pushReplacement(
+                    // Navigator.push(
                     //   context,
                     //   MaterialPageRoute(
                     //     builder: (context) => const OTPVerificationPage(),
@@ -213,7 +213,7 @@ class _AskMobileNumberPageState extends State<AskMobileNumberPage> {
         await SharedPrefs.saveNumber(number);
         _showDecoratedAlert(
             context, jsonDecode(res.body)['otp'].toString(), number);
-        // Navigator.pushReplacement(
+        // Navigator.push(
         //   context,
         //   MaterialPageRoute(
         //     builder: (context) => const OTPVerificationPage(),
@@ -271,7 +271,7 @@ class _AskMobileNumberPageState extends State<AskMobileNumberPage> {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushReplacement(
+                    Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => OTPVerificationPage(

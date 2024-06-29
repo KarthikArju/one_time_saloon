@@ -149,26 +149,26 @@ class Product {
 
 
 
-class AddressModel {
-  final String fullName;
-  final String streeAddress;
-  final String city;
-  final String state;
+// class AddressModel {
+//   final String fullName;
+//   final String streeAddress;
+//   final String city;
+//   final String state;
   
-  final String postalCode;
+//   final String postalCode;
 
-  AddressModel(this.fullName,
-      this.streeAddress,
-      this.city,
-      this.state,
+//   AddressModel(this.fullName,
+//       this.streeAddress,
+//       this.city,
+//       this.state,
       
-      this.postalCode);
-}
+//       this.postalCode);
+// }
 
-List<AddressModel> addressListItem = [
-  AddressModel('Kesav', '12/82, Mugapair west', 'Thirumangalam', 'Chennai','620003'),
-  AddressModel('Easwar', '12/82, Mugapair west', 'Thirumangalam', 'Chennai','620005'),
-  AddressModel('Ragav', '12/82, Mugapair west', 'Thirumangalam', 'Chennai','620002'),
-  AddressModel('Chandry', '12/82, Mugapair west', 'Thirumangalam', 'Chennai','620001'),
+// List<AddressModel> addressListItem = [
+//   AddressModel('Kesav', '12/82, Mugapair west', 'Thirumangalam', 'Chennai','620003'),
+//   AddressModel('Easwar', '12/82, Mugapair west', 'Thirumangalam', 'Chennai','620005'),
+//   AddressModel('Ragav', '12/82, Mugapair west', 'Thirumangalam', 'Chennai','620002'),
+//   AddressModel('Chandry', '12/82, Mugapair west', 'Thirumangalam', 'Chennai','620001'),
   
-];
+// ];

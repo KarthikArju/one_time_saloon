@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:salon/features/home_page.dart';
+import 'package:salon/pages_usermanagement/login_page.dart';
 import 'package:salon/pages_usermanagement/splash_screen.dart';
 import 'package:salon/utils/colors.dart';
 
@@ -6,7 +8,7 @@ import 'package:salon/utils/colors.dart';
 
 
 
-void main() {   
+void main() {
   runApp(const MyApp());
 }
 
@@ -20,13 +22,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Saloon app',
       theme: ThemeData(
-
         drawerTheme: const DrawerThemeData(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero)),
         scaffoldBackgroundColor: AppColors.appbackgroundColor,
       ),
-      home:const SplashScreen() 
-      
+      home:const LoginPage() 
     );
   } 
 }

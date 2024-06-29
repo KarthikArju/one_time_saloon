@@ -31,21 +31,21 @@ class _TimeChoiceChipState extends State<TimeChoiceChip> {
   @override
   Widget build(BuildContext context) {
     return  Wrap(
-        spacing: 10.0,
+        spacing: 8.0,
         
         children: List<Widget>.generate(
          12,
           (int index) {
             return Padding(
               
-              padding: const EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsets.symmetric(vertical: 6),
               child: ChoiceChip(
                 labelPadding:const EdgeInsets.symmetric(horizontal: 4),
                 label: Text(
                   _choices[index],
                   style: TextStyle(
                     color: _selectedChoice == index ? Colors.white : Colors.black,
-                    fontSize: 16.0,
+                    fontSize: 14.0,
                     fontWeight: FontWeight.bold,
                   ),
                    ),
@@ -62,7 +62,7 @@ class _TimeChoiceChipState extends State<TimeChoiceChip> {
                   borderRadius: BorderRadius.circular(20.0),
                   side: BorderSide(
                     color: _selectedChoice == index ? AppColors.appbackgroundColor : Colors.grey,
-                    width: 2.0,
+                    width:1.0,
                   ),
                 ),
                 padding:const  EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),

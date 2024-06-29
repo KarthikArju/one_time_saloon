@@ -9,7 +9,8 @@ import 'package:salon/utils/colors.dart';
 import 'package:salon/widgets/otp_text_box.dart';
 
 class ForegetOTPPage extends StatefulWidget {
-  const ForegetOTPPage({super.key});
+  final String email;
+  const ForegetOTPPage({super.key, required this.email});
 
   @override
   State<ForegetOTPPage> createState() => _ForegetOTPPageState();
@@ -111,10 +112,10 @@ class _ForegetOTPPageState extends State<ForegetOTPPage> {
                 const SizedBox(height: 40),
                 InkWell(
                   onTap: () {
-                    Navigator.pushReplacement(
+                    Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const ResetPasswordPage(),
+                        builder: (context) =>  ResetPasswordPage(email: widget.email,),
                       ),
                     );
                   },

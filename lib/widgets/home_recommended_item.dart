@@ -27,7 +27,7 @@ class RecommenedSection extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder:(context) => const RecommendedViewAllPage() ),);
+                            Navigator.of(context).push(MaterialPageRoute(builder:(context) => const RecommendedViewAllPage() ),);
                           },
                           child: const Text(
                             'View all',

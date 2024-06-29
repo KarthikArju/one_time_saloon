@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:salon/features/home_page.dart';
+import 'package:salon/features/search_saloon.dart';
 import 'package:salon/utils/colors.dart';
 import 'package:salon/widgets/home_items_list.dart';
 
@@ -33,7 +34,7 @@ class BarbarViewAllPage extends StatelessWidget {
                         Row(children: [
                           GestureDetector(
                             onTap: () {
-                              Navigator.pushReplacement(
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => const HomePage(),
@@ -118,25 +119,35 @@ class BarbarViewAllPage extends StatelessWidget {
                   const SizedBox(
                     height: 70,
                   ),
-                  Container(
-                    height: 50,
-                    decoration: const BoxDecoration(
-                      color: Colors.white54,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(8),
-                      ),
-                    ),
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    margin: const EdgeInsets.symmetric(horizontal: 36),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Salon, Services, Barber',
-                          style: TextStyle(fontSize: 16, color: Colors.black54),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SearchSaloon()));
+                    },
+                    child: Container(
+                      height: 50,
+                      decoration: const BoxDecoration(
+                        color: Colors.white54,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8),
                         ),
-                        Icon(Icons.search, color: AppColors.appbackgroundColor)
-                      ],
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      margin: const EdgeInsets.symmetric(horizontal: 36),
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Salon, Services, Barber',
+                            style:
+                                TextStyle(fontSize: 16, color: Colors.black54),
+                          ),
+                          Icon(Icons.search,
+                              color: AppColors.appbackgroundColor)
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -213,8 +224,12 @@ class BarbarViewAllPage extends StatelessWidget {
                                         itemBuilder: (context, index) {
                                           return Container(
                                             width: 120,
-                                            decoration: BoxDecoration( borderRadius: BorderRadius.circular(10), border: Border.all(color: Colors.grey.shade200)),
-                                            
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                border: Border.all(
+                                                    color:
+                                                        Colors.grey.shade200)),
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 20),
                                             child: Column(

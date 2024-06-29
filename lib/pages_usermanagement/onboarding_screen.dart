@@ -30,7 +30,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   void _onButtonPressed() {
     if (_currentPage == _totalPages - 1) {
-      Navigator.pushReplacement(
+      Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const SignUpPage()),
       );

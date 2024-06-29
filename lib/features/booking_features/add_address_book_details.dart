@@ -5,8 +5,7 @@ import 'package:salon/utils/colors.dart';
 
 
 class AddAdressPage extends StatefulWidget {
-  
-  const AddAdressPage({super.key, });
+      const AddAdressPage({super.key, });
 
   @override
   State<AddAdressPage> createState() => _AddAdressPageState();
@@ -76,7 +75,8 @@ class _AddAdressPageState extends State<AddAdressPage> {
                           errorBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.white)),
                           contentPadding: const EdgeInsets.symmetric(
-                              vertical: 16, horizontal: 16),
+                              vertical: 8, horizontal: 8),
+                              isDense: true,
                           hintText: 'Enter full name',
                           filled: true,
                           fillColor: Colors.white,
@@ -89,7 +89,7 @@ class _AddAdressPageState extends State<AddAdressPage> {
                         keyboardType: TextInputType.text,
                       ),
 
-                     const  SizedBox(height: 20,),
+                     const  SizedBox(height: 12,),
                      
                      const Row(
                         children: [
@@ -108,8 +108,9 @@ class _AddAdressPageState extends State<AddAdressPage> {
                         decoration: InputDecoration(
                           errorBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.white)),
-                          contentPadding: const EdgeInsets.symmetric(
-                              vertical: 16, horizontal: 16),
+                         contentPadding: const EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 8),
+                              isDense: true,
                           hintText: 'Enter address',
                           filled: true,
                           fillColor: Colors.white,
@@ -120,7 +121,7 @@ class _AddAdressPageState extends State<AddAdressPage> {
                         ),
                         keyboardType: TextInputType.text,
                       ),
-                        const  SizedBox(height: 20,),
+                        const  SizedBox(height: 12,),
                          
                      const Row(
                         children: [
@@ -140,7 +141,8 @@ class _AddAdressPageState extends State<AddAdressPage> {
                           errorBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.white)),
                           contentPadding: const EdgeInsets.symmetric(
-                              vertical: 16, horizontal: 16),
+                              vertical: 8, horizontal: 8),
+                              isDense: true,
                           hintText: 'Enter city',
                           filled: true,
                           fillColor: Colors.white,
@@ -151,7 +153,7 @@ class _AddAdressPageState extends State<AddAdressPage> {
                         ),
                         keyboardType: TextInputType.text,
                       ),
-                      const  SizedBox(height: 20,),
+                      const  SizedBox(height: 12,),
                      const Row(
                         children: [
                           Text(
@@ -170,7 +172,8 @@ class _AddAdressPageState extends State<AddAdressPage> {
                           errorBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.white)),
                           contentPadding: const EdgeInsets.symmetric(
-                              vertical: 16, horizontal: 16),
+                              vertical: 8, horizontal: 8),
+                              isDense: true,
                           hintText: 'Enter State',
                           filled: true,
                           fillColor: Colors.white,
@@ -182,7 +185,7 @@ class _AddAdressPageState extends State<AddAdressPage> {
                         keyboardType: TextInputType.text,
                       ),
                        
-                        const  SizedBox(height: 20,),
+                        const  SizedBox(height: 12,),
                      const Row(
                         children: [
                           Text(
@@ -201,7 +204,8 @@ class _AddAdressPageState extends State<AddAdressPage> {
                           errorBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.white)),
                           contentPadding: const EdgeInsets.symmetric(
-                              vertical: 16, horizontal: 16),
+                              vertical: 8, horizontal: 8),
+                              isDense: true,
                           hintText: 'Enter postal code',
                           filled: true,
                           fillColor: Colors.white,
@@ -212,13 +216,13 @@ class _AddAdressPageState extends State<AddAdressPage> {
                         ),
                         keyboardType: TextInputType.number,
                       ),
-                       const SizedBox(height: 80),
+                       const SizedBox(height: 40),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             InkWell(
                               // onTap: () {
-                              //   Navigator.pushReplacement(
+                              //   Navigator.push(
                               //       context,
                               //       MaterialPageRoute(
                               //         builder: (context) =>
@@ -246,7 +250,7 @@ class _AddAdressPageState extends State<AddAdressPage> {
                             ),
                             InkWell(
                               // onTap: () {
-                              //   Navigator.pushReplacement(
+                              //   Navigator.push(
                               //       context,
                               //       MaterialPageRoute(
                               //         builder: (context) =>
@@ -256,7 +260,7 @@ class _AddAdressPageState extends State<AddAdressPage> {
 
                               onTap: () {
                             if (_formkey.currentState!.validate()) {
-                              Navigator.pushReplacement(
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>

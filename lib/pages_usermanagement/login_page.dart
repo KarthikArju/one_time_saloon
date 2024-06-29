@@ -13,6 +13,7 @@ import 'package:salon/pages_usermanagement/signup_page.dart';
 
 import 'package:salon/utils/colors.dart';
 import 'package:salon/widgets/shared_functions.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../features/home_page.dart';
 import '../utils/api.dart';
@@ -278,6 +279,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void doLogin() async {
+     SharedPreferences? prefs = await SharedPreferences.getInstance();
     setState(() {
       isLoading = true;
     });
@@ -291,6 +293,8 @@ class _LoginPageState extends State<LoginPage> {
         body: map,
       );
       if (res.statusCode == 200) {
+        var res2=json.decode(res.body);
+         prefs.setString("Email", res2["data"][0]["email"].toString());
         print('Success: ${res.body}');
       } else if (res.statusCode == 400) {
         print('Client Error: ${res.body}');
@@ -302,7 +306,7 @@ class _LoginPageState extends State<LoginPage> {
           isLoading = false;
         });
         toastify("Logged in successfully");
-        await Navigator.pushReplacement(
+        await Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => const HomePage(),

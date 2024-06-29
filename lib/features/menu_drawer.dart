@@ -155,7 +155,7 @@ class MenuNavBar extends StatelessWidget {
               style: TextStyle(color: Colors.white),
             ),
             onTap: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => const BookMarkPage(),

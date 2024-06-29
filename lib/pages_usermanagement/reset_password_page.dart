@@ -1,13 +1,20 @@
+import 'dart:convert';
+
 import 'package:custom_clippers/custom_clippers.dart';
 
 import 'package:flutter/material.dart';
 import 'package:salon/features/home_page.dart';
-
+import 'package:http/http.dart' as http;
+import 'package:salon/pages_usermanagement/login_page.dart'; 
 
 import 'package:salon/utils/colors.dart';
 
+import '../utils/api.dart';
+import '../widgets/shared_functions.dart';
+
 class ResetPasswordPage extends StatefulWidget {
-  const ResetPasswordPage({super.key});
+  final String email;
+  const ResetPasswordPage({super.key, required this.email});
 
   @override
   State<ResetPasswordPage> createState() => _ResetPasswordPageState();
@@ -24,6 +31,40 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   bool obsecuretxt = true;
   bool confrimobsecuretxt = true;
   bool isChecked = false;
+  bool isLoading = false;
+  void resetPassword() async{
+    setState(() {
+      isLoading = true;
+    });
+    var map = {};
+    map['email'] = widget.email;
+    map["password"]=_passwordController.text;
+    map["cnfpassword"]=_confirmPasswordController.text;
+
+    var response = await http.post(
+      Uri.parse(APIEndPoints.resetPassword),
+      body: map,
+    );
+    if (response.statusCode == 200) {
+      if (jsonDecode(response.body)["status"] == "success") {
+        toastify(jsonDecode(response.body)["message"]);
+       _showDecoratedAlert(context);
+        setState(() {
+          isLoading = false;
+        });
+      } else {
+        toastify(jsonDecode(response.body)["message"]);
+        setState(() {
+          isLoading = false;
+        });
+      }
+    } else {
+      toastify("Something went wrong");
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final inputBorder = OutlineInputBorder(
@@ -191,8 +232,10 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         ),
                         const SizedBox(height: 35),
                         InkWell(
-                          
-                          onTap: () => _showDecoratedAlert(context),
+                          onTap: (){
+                            resetPassword();
+                          },
+                          // onTap: () => _showDecoratedAlert(context),
                           child: Container(
                             // // padding: const EdgeInsets.all(32),
                             // margin: const EdgeInsets.symmetric(horizontal: 30),
@@ -202,7 +245,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                 color: Colors.white,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(5))),
-                            child: const Center(
+                            child: isLoading? appLoader() : const Center(
                                 child: Text(
                               'RESET',
                               style: TextStyle(
@@ -264,9 +307,9 @@ void _showDecoratedAlert(BuildContext context) {
             children: <Widget>[
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pushReplacement(
+                  Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => const HomePage(),
+                      builder: (context) => const LoginPage(),
                     ),
                   );
 

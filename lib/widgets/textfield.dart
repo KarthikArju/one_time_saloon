@@ -25,9 +25,9 @@ class TextFieldBox extends StatelessWidget {
       controller: textEditingController,
       decoration: InputDecoration(
         
-        contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+        contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
         hintText: hintText, 
-
+isDense: true,
         filled: true,
         fillColor: Colors.white,
         focusColor: Colors.white,
